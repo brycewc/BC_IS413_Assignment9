@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Movie Database";
+}
+
+@model IEnumerable<Movies>
+
+<div>
+    <h2>@ViewData["Movies Database"]</h2>
+
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Title</th>
+                <th scope="col">Year</th>
+                <th scope="col">Director</th>
+                <th scope="col">Rating</th>
+                <th scope="col">Edited</th>
+                <th scope="col">Lent To</th>
+                <th scope="col">Notes</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Movies movie in Model)
+            {
+                <tr>
+                    <td>@movie.Category</td>
+                    <td>@movie.Title</td>
+                    <td>@movie.Year</td>
+                    <td>@movie.Director</td>
+                    <td>@movie.Rating</td>
+                    <td>@movie.Edited</td>
+                    <td>@movie.LentTo</td>
+                    <td>@movie.Notes</td>
+                    <td>
+                        <form id="@movie.MovieID" asp-action="EditMovies" method="post">
+                            <input type="hidden" value="@movie.MovieID" name="id" />
+                            <span class="card-text p-1">
+                                <button type="submit" class="btn btn-primary">
+                                    Edit
+                                </button>
+                            </span>
+                        </form>
+                        
+                    </td>
+                    <td>
+                        <form id="@movie.MovieID" asp-action="DeleteMovies" method="post">
+                            <input type="hidden" value="@movie.MovieID" name="id" />
+                            <span class="card-text p-1">
+                                <button type="submit" class="btn btn-primary">
+                                    Delete
+                                </button>
+                            </span>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
