@@ -17,6 +17,9 @@ namespace BC_IS413_Assignment9.Controllers
 
         private IMoviesRepository _repository;
 
+        public static int staticID; //global variable to store id of editing movie between pages
+
+        //Constructor
         public HomeController(ILogger<HomeController> logger, MoviesDBContext context, IMoviesRepository repository)
         {
             _logger = logger;
@@ -52,8 +55,6 @@ namespace BC_IS413_Assignment9.Controllers
             return View("AddMovies");
         }
 
-        public static int staticID;
-
         [HttpPost]
         public IActionResult EditMovies(int id)
         {
@@ -70,6 +71,7 @@ namespace BC_IS413_Assignment9.Controllers
             if (ModelState.IsValid)
             {
                 var movie = _context.Movies.Single(x => x.MovieID == staticID);
+                //Can't use shorter method to do in one line, because ID is not being changed
                 _context.Entry(movie).Property(x => x.Category).CurrentValue = model.MoviesModel.Category;
                 _context.Entry(movie).Property(x => x.Title).CurrentValue = model.MoviesModel.Title;
                 _context.Entry(movie).Property(x => x.Year).CurrentValue = model.MoviesModel.Year;
@@ -85,7 +87,7 @@ namespace BC_IS413_Assignment9.Controllers
             {
                 return View(new MoviesViewModel
                 {
-                    MoviesModel = _context.Movies.Single(x => x.MovieID == staticID),
+                    MoviesModel = _context.Movies.Single(x => x.MovieID == staticID), //single allows casting an IQueryable query that will end in one result becoming a model
                     ID = staticID
                 });
             }
@@ -103,6 +105,7 @@ namespace BC_IS413_Assignment9.Controllers
             return View(_context.Movies);
         }
 
+        //From default project creation
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

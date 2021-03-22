@@ -8,6 +8,7 @@ namespace BC_IS413_Assignment9.Models
 {
     public class Movies
     {
+        //Validation from assignment 3
         [Key]
         public int MovieID { get; set; }
 
