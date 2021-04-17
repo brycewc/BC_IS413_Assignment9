@@ -31,8 +31,6 @@ namespace BC_IS413_Assignment9
                 //Connection string. Defined in appsettings.json
                 options.UseSqlite(Configuration["ConnectionStrings:MoviesConnection"]);
             });
-
-            services.AddScoped<IMoviesRepository, EFMoviesRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

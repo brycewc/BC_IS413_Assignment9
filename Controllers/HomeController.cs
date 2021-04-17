@@ -15,16 +15,13 @@ namespace BC_IS413_Assignment9.Controllers
 
         private MoviesDBContext _context;
 
-        private IMoviesRepository _repository;
-
         public static int staticID; //global variable to store id of editing movie between pages
 
         //Constructor
-        public HomeController(ILogger<HomeController> logger, MoviesDBContext context, IMoviesRepository repository)
+        public HomeController(ILogger<HomeController> logger, MoviesDBContext context)
         {
             _logger = logger;
             _context = context;
-            _repository = repository;
         }
 
         public IActionResult Index()
